@@ -1,0 +1,17 @@
+# @function_url = http://localhost:8000
+@function_url = https://mdgz5haanzp3ygznvthh4v72bi0prodw.lambda-url.sa-east-1.on.aws
+
+
+###
+
+GET {{function_url}}/products/
+Accept: application/json
+
+###
+
+POST {{function_url}}/products/
+Content-Type: application/json
+
+{
+  "name": "Cecilia"
+}

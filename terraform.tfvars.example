@@ -1,0 +1,19 @@
+# Namespace Configuration
+kubernetes_namespace = "backend"
+
+# Image Configuration
+image_repository = "ghcr.io/thmb/backend"
+image_tag        = "latest"
+
+# Deployment Configuration
+replicas = 1
+
+# Ingress Configuration
+ingress_host = "api.localhost"
+
+# Database Configuration
+database_host     = "postgres-cluster-rw.database.svc.cluster.local"
+database_port     = 5432
+database_name     = "backend"
+database_user     = "backend"
+database_password = "changeme"
