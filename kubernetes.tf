@@ -8,7 +8,7 @@ terraform {
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 3.0.0"
+      version = ">= 3.0.1"
     }
   }
 }
@@ -36,8 +36,8 @@ variable "image_tag" {
   type        = string
 }
 
-variable "replicas" {
-  description = "Number of pod replicas."
+variable "deployment_replicas" {
+  description = "Number of backend pod replicas."
   default     = 1
   type        = number
 }
@@ -61,13 +61,13 @@ variable "database_port" {
 
 variable "database_name" {
   description = "PostgreSQL database name."
-  default     = "app"
+  default     = "application"
   type        = string
 }
 
 variable "database_user" {
   description = "PostgreSQL database user."
-  default     = "app"
+  default     = "backend"
   type        = string
 }
 
@@ -160,7 +160,7 @@ resource "kubernetes_deployment_v1" "backend" {
   }
 
   spec {
-    replicas = var.replicas
+    replicas = var.deployment_replicas
 
     selector {
       match_labels = {
@@ -291,9 +291,7 @@ resource "kubernetes_ingress_v1" "backend" {
           backend {
             service {
               name = kubernetes_service_v1.backend.metadata[0].name
-              port {
-                number = 80
-              }
+              port { name = "http" }
             }
           }
         }
@@ -307,24 +305,9 @@ resource "kubernetes_ingress_v1" "backend" {
 # OUTPUTS
 # ==============================================================================
 
-output "ingress_url" {
-  description = "URL to access the Backend API."
-  value       = "http://${var.ingress_host}"
-}
-
-output "namespace" {
-  description = "Kubernetes namespace."
-  value       = kubernetes_namespace_v1.backend.metadata[0].name
-}
-
-output "service_name" {
-  description = "Kubernetes service name."
-  value       = kubernetes_service_v1.backend.metadata[0].name
-}
-
-output "deployment_name" {
-  description = "Kubernetes deployment name."
-  value       = kubernetes_deployment_v1.backend.metadata[0].name
+output "service_endpoint" {
+  description = "Kubernetes service endpoint."
+  value       = "http://${kubernetes_service_v1.backend.metadata[0].name}.${kubernetes_namespace_v1.backend.metadata[0].name}.svc.cluster.local"
 }
 
 output "health_endpoint" {

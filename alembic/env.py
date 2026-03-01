@@ -4,9 +4,9 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from restapi.config import get_settings
-from restapi.database import Base
-from restapi.models import product  # noqa: F401 - Import models to register them
+from fastapi.config import get_settings
+from fastapi.database import Base
+from fastapi.models import product  # noqa: F401 - Import models to register them
 
 # Alembic Config object
 config = context.config
