@@ -1,0 +1,85 @@
+Table business.authentications {
+  user_id uuid [pk, ref: - business.users.id]
+  username varchar(64) [not null]
+  password varchar(128) [not null]
+  version timestamptz [not null, default: `now()`]
+  Indexes {
+    username
+    password
+    version
+  }
+}
+
+Table business.authorizations {
+  user_id uuid [ref: > business.users.id]
+  role_id uuid [ref: > business.roles.id]
+  Indexes {
+    (user_id, role_id) [pk]
+  }
+}
+
+Table business.roles {
+  id uuid [pk, default: `uuid_generate_v7()`]
+  name varchar(32) [not null]
+  permissions "varchar(32)[]" [not null]
+  version timestamptz [not null, default: `now()`]
+  Indexes {
+    name
+    permissions
+    version
+  }
+}
+
+Table business.users {
+  id uuid [pk, default: `uuid_generate_v7()`]
+  name varchar(64) [not null]
+  skills "varchar(32)[]" [not null, note: 'item skill']
+  address jsonb [note: 'street, number, city, etc']
+  location geometry(point,4326) [note: 'lat, lng']
+  active boolean [not null, default: `false`]
+  version timestamptz [not null, default: `now()`]
+  Indexes {
+    name
+    skills
+    address
+    location
+    active
+    version
+  }
+}
+
+Table business.tasks {
+  id uuid [pk, default: `uuid_generate_v7()`]
+  previous_id uuid [ref: - business.tasks.id, note: 'dependency']
+  user_id uuid [ref: > business.users.id, note: 'planning phase']
+  plan_id uuid [ref: > business.plans.id, not null]
+  items jsonb[] [not null, note: 'type, date, skill, content']
+  effort integer [note: 'amount of time (hours)']
+  version timestamptz [not null, default: `now()`]
+  Indexes {
+    previous_id
+    user_id
+    plan_id
+    items
+    effort
+    version
+  }
+}
+
+Table business.plans {
+  id uuid [pk, default: `uuid_generate_v7()`]
+  title varchar(64)
+  context text [note: 'agent markdown content']
+  deadline timestamptz
+  progress float [note: 'amount per hour']
+  budget decimal [note: 'USD, EUR or Bitcoin']
+  version timestamptz [not null, default: `now()`]
+  Indexes {
+    title
+    context
+    deadline
+    progress
+    budget
+    version
+  }
+}

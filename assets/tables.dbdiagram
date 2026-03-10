@@ -1,0 +1,138 @@
+{
+  "version": "1.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "detailLevel": "All",
+  "tablePositions": [
+    {
+      "name": "authentications",
+      "schemaName": "business",
+      "x": 0,
+      "y": 50
+    },
+    {
+      "name": "authorizations",
+      "schemaName": "business",
+      "x": 298.17431640625,
+      "y": 50
+    },
+    {
+      "name": "roles",
+      "schemaName": "business",
+      "x": 588.09033203125,
+      "y": 50
+    },
+    {
+      "name": "users",
+      "schemaName": "business",
+      "x": 899.0791015625,
+      "y": 50
+    },
+    {
+      "name": "tasks",
+      "schemaName": "business",
+      "x": 0,
+      "y": 260
+    },
+    {
+      "name": "plans",
+      "schemaName": "business",
+      "x": 298.17431640625,
+      "y": 196
+    }
+  ],
+  "tableGroupCollapseStates": [],
+  "stickyNoteLayouts": [],
+  "referencePaths": [
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "users",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "user_id"
+      ],
+      "secondTableName": "authentications",
+      "secondSchemaName": "business",
+      "secondRelation": "1",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "users",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "user_id"
+      ],
+      "secondTableName": "authorizations",
+      "secondSchemaName": "business",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "roles",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "role_id"
+      ],
+      "secondTableName": "authorizations",
+      "secondSchemaName": "business",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "tasks",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "previous_id"
+      ],
+      "secondTableName": "tasks",
+      "secondSchemaName": "business",
+      "secondRelation": "1",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "users",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "user_id"
+      ],
+      "secondTableName": "tasks",
+      "secondSchemaName": "business",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "plans",
+      "firstSchemaName": "business",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "plan_id"
+      ],
+      "secondTableName": "tasks",
+      "secondSchemaName": "business",
+      "secondRelation": "*",
+      "checkPoints": []
+    }
+  ]
+}

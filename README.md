@@ -15,7 +15,7 @@ FastAPI application with PostgreSQL, deployable to Kubernetes.
 
 ```
 backend/
-├── fastapi/
+├── app/
 │   ├── models/        # SQLAlchemy models
 │   ├── routers/       # API routes
 │   ├── schemas/       # Pydantic schemas
@@ -23,7 +23,7 @@ backend/
 │   ├── config.py      # Settings
 │   ├── database.py    # DB connection
 │   └── main.py        # FastAPI app
-├── alembic/
+├── migrations/
 │   ├── versions/      # Migration files
 │   └── env.py         # Alembic config
 ├── alembic.ini        # Alembic settings
@@ -53,7 +53,7 @@ cp .env.example .env
 uv run alembic upgrade head
 
 # Start server
-uv run uvicorn fastapi.main:app --reload
+uv run uvicorn app.main:app --reload
 ```
 
 ## Database Migrations
